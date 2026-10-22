@@ -4,6 +4,8 @@
  * 浏览器端的步骤（缩图）在本机用 ffmpeg 做；页面本身的代码在本地 dev 里验。会花一点模型费用（约 $0.01），所以不在门禁里。
  *
  *   node scripts/smoke.ts [--base https://…] [--dir testdata/公司资料]
+ *   node scripts/smoke.ts --url https://…/i/<id>.<key>   # 只扮演对方：在一条已有的链接上交一轮（不建邀请、不作废）
+ *        [--files "相对路径,项key=相对路径,…"]               # 交哪些文件；带「项key=」的放进那一项（单独补传），不走归类
  *
  * 令牌与地址同 scripts/do.ts（INTAKE_ADMIN_TOKEN / data/prod-secrets.json；INTAKE_BASE）。
  */
@@ -86,6 +88,12 @@ const browserStep = async (
   params: Record<string, unknown>,
   stepId: string,
 ) => {
+  if (op === "text.keep") {
+    const form = new FormData();
+    form.set("meta", "{}");
+    form.set("text", readFileSync(local, "utf8"));
+    return (await api("POST", `/api/files/${f.id}/steps/${stepId}/product`, form)).file!;
+  }
   if (op !== "image.resize") throw new Error(`smoke does not do ${op}`);
   const fmt = String(params["format"]);
   const out = `/tmp/smoke-${f.id}.${fmt === "jpeg" ? "jpg" : fmt}`;
@@ -112,11 +120,14 @@ const browserStep = async (
 
 const main = async () => {
   if (!token) throw new Error("no ADMIN_TOKEN");
-  const inv = (await admin("create", {
-    template: "website-kickoff",
-    ref: "SMOKE",
-    overrides: { budget: { usd: 0.2 } },
-  })) as { id: string; url: string };
+  const given = flag("url");
+  const inv = given
+    ? { id: /\/i\/(inv_[a-z0-9]{10})\./.exec(given)?.[1] ?? "", url: given.replace(/\/$/, "") }
+    : ((await admin("create", {
+        template: "website-kickoff",
+        ref: "SMOKE",
+        overrides: { budget: { usd: 0.2 } },
+      })) as { id: string; url: string });
   page = inv.url;
   console.log(`invite ${inv.id}`);
   check((await fetch(`${page}/`)).status === 200, "the page opens with its key");
@@ -125,7 +136,11 @@ const main = async () => {
     "a wrong key is a 404",
   );
 
-  for (const rel of FILES) {
+  const picks = (flag("files")?.split(",") ?? FILES).map((x) => {
+    const [item, rel] = x.includes("=") ? (x.split("=") as [string, string]) : ["", x];
+    return { item, rel };
+  });
+  for (const { item, rel } of picks) {
     const local = join(dir, rel);
     const bytes = readFileSync(local);
     const s = sniff(rel, new Uint8Array(bytes.subarray(0, 4096)));
@@ -146,6 +161,7 @@ const main = async () => {
         kind: s.kind,
         mime: s.mime,
         facts,
+        item,
       })
     ).file!;
     for (const st of f.steps.filter((x) => x.status === "missing" && x.input === "browser"))
@@ -159,8 +175,9 @@ const main = async () => {
       ffmpeg(["-i", local, "-ac", "1", "-ar", "16000", "-c:a", "pcm_s16le", "/tmp/smoke.wav"]);
       clip = new Uint8Array(readFileSync("/tmp/smoke.wav"));
     }
-    f = (await api("POST", `/api/files/${f.id}/sort?seconds=${facts["duration"] ?? 0}`, clip))
-      .file!;
+    if (f.assignment === null)
+      f = (await api("POST", `/api/files/${f.id}/sort?seconds=${facts["duration"] ?? 0}`, clip))
+        .file!;
     for (const st of f.steps.filter((x) => x.status === "missing" && x.input === "browser"))
       f = await browserStep(f, local, st.op, st.params, st.stepId);
     const tr = f.steps.find((x) => x.input === "audio" && x.status === "missing");
@@ -215,6 +232,7 @@ const main = async () => {
   );
   const status = (await admin("status", { id: inv.id })) as { money: { spentUsd: number } };
   console.log(`  spent $${status.money.spentUsd.toFixed(5)}`);
+  if (given) return;
   await admin("revoke", { id: inv.id });
   check(
     (await fetch(`${page}/api/state`)).status === 404 ||

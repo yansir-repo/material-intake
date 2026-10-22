@@ -143,6 +143,15 @@ describe("resolve: template + overrides → snapshot", () => {
     expect(all).toContain("required needs count.min");
   });
 
+  it("refuses a second item with an existing title: change the item by its key instead", () => {
+    const r = resolve(base, { items: [{ key: "photos-2", title: "照片", accept: ["image"] }] });
+    expect(r.ok).toBe(false);
+    expect(!r.ok && r.problems.join("\n")).toContain("same title as items.photos");
+    expect(resolve(base, { items: [{ key: "photos", title: "照片", ask: "改了说明" }] }).ok).toBe(
+      true,
+    );
+  });
+
   it("refuses a budget of zero and silly limits", () => {
     const r = resolve(base, { budget: { usd: 0 }, maxFiles: 0, retainDays: 1000 });
     expect(r.ok).toBe(false);

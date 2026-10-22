@@ -232,6 +232,17 @@ export const resolve = (tpl: TemplateInput, ov: Overrides = {}): Resolved => {
     if (!KEY_RE.test(it.key ?? "")) problems.push(`${where}: key must match ${KEY_RE.source}`);
     if (seen.has(it.key)) problems.push(`${where}: duplicate key`);
     seen.add(it.key);
+    // 标题是对方看到的一项，也是归类时的一个选项：两项同名，对方分不清、模型也分不清
+    const sameTitle = inputs.find(
+      (o) =>
+        o !== it &&
+        (o.title ?? "").trim() === (it.title ?? "").trim() &&
+        inputs.indexOf(o) < inputs.indexOf(it),
+    );
+    if (sameTitle)
+      problems.push(
+        `${where}: same title as items.${sameTitle.key} (「${(it.title ?? "").trim()}」) — change that item by its key instead of adding another`,
+      );
     const t = (it.title ?? "").trim();
     if (!t || t.length > 40) problems.push(`${where}.title: 1–40 characters`);
     const ask = (it.ask ?? "").trim();
