@@ -1,0 +1,2 @@
+# Copy to .dev.vars for `cf dev`. Never commit .dev.vars.
+ADMIN_TOKEN=local-admin-token-change-me

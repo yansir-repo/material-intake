@@ -1,0 +1,51 @@
+{
+  "shape": ["http-server", "db:d1", "ai"],
+  "executableEdges": [
+    {
+      "path": "src/worker/index.ts",
+      "owner": "material-intake Worker",
+      "reason": "The scheduled trigger (daily) runs one program, retention.ts's purgeOriginals, through `runRetention`; HTTP requests go through the Effect web handler and need no runner.",
+      "execution": {
+        "lifecycle": "exported-function",
+        "runners": ["Effect.runPromise"],
+        "function": {
+          "export": "runRetention"
+        }
+      }
+    }
+  ],
+  "nativeDependencyBoundaries": [],
+  "hostTooling": [
+    {
+      "path": "scripts/**",
+      "owner": "Operator tooling",
+      "reason": "Host programs on the operator's machine: the CLI (do.ts), local D1 migration, the cf token preflight, hook and compiler installers."
+    },
+    {
+      "path": "src/web/**",
+      "owner": "Intake page (browser)",
+      "reason": "The respondent's page: DOM, canvas, media decoding and fetches against the Worker's /api. It is not Effect code and never runs on the Worker; it only imports the pure shared modules."
+    },
+    {
+      "path": "vite.config.ts",
+      "owner": "Build tooling",
+      "reason": "The vite-plus config runs in the build host; it reads process.env.VITEST only to skip the Cloudflare plugin for plain unit tests."
+    }
+  ],
+  "generatedPaths": [],
+  "allowedAdapters": [
+    {
+      "path": "src/worker/index.ts",
+      "owner": "material-intake Worker",
+      "reason": "The fetch and scheduled edges hand each request (or the daily retention run) to one Effect program and copy its response into a native Response. No business logic lives here beyond routing.",
+      "rules": ["EFF402"]
+    }
+  ],
+  "aiProviderTransports": [
+    {
+      "path": "src/worker/models.ts",
+      "owner": "Workers AI",
+      "reason": "Every model call goes through the Workers AI binding (env.AI.run / toMarkdown), wrapped as one Effect per call with strict decoding of the answer."
+    }
+  ]
+}

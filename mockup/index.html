@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>资料收集 · mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --paper: #f3eee4; --paper-2: #e9e2d3; --card: #fbf8f2;
+  --ink: #1e1c18; --ink-2: #57524a; --ink-3: #8f887c; --rule: #d9d0bf;
+  --red: #c23b22; --green: #2c5b4d; --amber: #a2650c; --amber-soft: #f6e8cc;
+  --night: #16181b; --night-2: #1f2226; --night-rule: #2e3237; --night-ink: #d9d6cf; --night-dim: #8a8780;
+  --serif: "Noto Serif SC", "Songti SC", serif;
+  --sans: "Noto Sans SC", "PingFang SC", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: var(--sans); color: var(--ink); background: var(--paper); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100; opacity: .35; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .4  0 0 0 0 .32  0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+button, select, input { font: inherit; }
+button { cursor: pointer; }
+
+/* ---------- mockup chrome ---------- */
+.switch { position: fixed; top: 14px; right: 14px; z-index: 60; display: flex; align-items: center; gap: 2px; padding: 3px; border-radius: 999px; background: rgba(30,28,24,.9); backdrop-filter: blur(6px); box-shadow: 0 6px 24px rgba(0,0,0,.18); }
+.switch .lbl { color: #9d978c; font: 500 11px/1 var(--mono); padding: 0 8px 0 12px; letter-spacing: .06em; }
+.switch button { border: 0; background: transparent; color: #d8d3c9; padding: 7px 13px; border-radius: 999px; font-size: 13px; }
+.switch button.on { background: var(--paper); color: var(--ink); }
+.switch select { margin: 0 4px 0 8px; background: #3a3732; color: #eee8dc; border: 0; border-radius: 999px; padding: 6px 10px; font-size: 12px; }
+
+/* ---------- client ---------- */
+.client { max-width: 1120px; margin: 0 auto; padding: 64px 40px 150px; }
+.mast { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; padding-bottom: 26px; border-bottom: 2px solid var(--ink); }
+.kicker { font: 500 12px/1 var(--mono); letter-spacing: .16em; color: var(--ink-3); }
+.mast h1 { font: 900 50px/1.1 var(--serif); margin: 14px 0 12px; letter-spacing: -.01em; }
+.mast p { margin: 0; color: var(--ink-2); max-width: 600px; }
+.meta { text-align: right; font-size: 13px; color: var(--ink-2); line-height: 1.9; }
+.meta b { font-family: var(--mono); font-weight: 500; color: var(--ink); }
+
+/* hero drop */
+.hero { margin: 34px 0 0; border: 2px dashed var(--ink-2); border-radius: 6px; background: var(--card); padding: 54px 40px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px; transition: all .25s; position: relative; overflow: hidden; }
+.hero::after { content: ""; position: absolute; right: -60px; bottom: -80px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(194,59,34,.08), transparent 70%); pointer-events: none; }
+.hero.over { border-color: var(--red); background: #fff; }
+.hero h2 { font: 900 34px/1.2 var(--serif); margin: 0 0 10px; }
+.hero h2 span { color: var(--red); }
+.hero p { margin: 0; color: var(--ink-2); max-width: 560px; }
+.hero ul { margin: 14px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 13px; color: var(--ink-2); }
+.hero li::before { content: "— "; color: var(--red); }
+.hero.compact { padding: 18px 24px; border-width: 1.5px; }
+.hero.compact h2 { font-size: 18px; margin: 0; }
+.btn { border: 1.5px solid var(--ink); background: var(--ink); color: var(--paper); padding: 11px 22px; border-radius: 2px; font-weight: 500; font-size: 14px; white-space: nowrap; }
+.btn:active { transform: translateY(1px); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.sm { padding: 5px 12px; font-size: 12.5px; }
+.btn:disabled { background: var(--paper-2); border-color: var(--rule); color: var(--ink-3); cursor: not-allowed; }
+.link { border: 0; background: none; padding: 0; color: var(--ink-3); text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; font-size: 12.5px; }
+.link:hover { color: var(--ink); text-decoration-color: var(--ink); }
+
+/* live status */
+.live { display: flex; flex-wrap: wrap; gap: 8px 26px; align-items: center; margin: 16px 0 0; font-size: 13px; color: var(--ink-2); }
+.live b { font: 500 14px var(--mono); color: var(--ink); margin-right: 3px; }
+.live .meter { flex: 1 1 200px; height: 4px; background: var(--paper-2); border-radius: 2px; overflow: hidden; min-width: 160px; }
+.live .meter i { display: block; height: 100%; background: var(--ink); transition: width .3s; }
+.live .rej { color: var(--ink-3); }
+.rejected-list { margin: 10px 0 0; padding: 12px 16px; border-left: 2px solid var(--red); background: rgba(194,59,34,.05); font-size: 13px; }
+.rejected-list div { padding: 3px 0; }
+.rejected-list s { color: var(--ink-3); text-decoration-color: var(--red); margin-right: 10px; font-family: var(--mono); font-size: 12px; }
+
+/* unassigned */
+.unsure { margin: 30px 0 0; border: 1.5px solid var(--amber); background: var(--amber-soft); border-radius: 4px; padding: 20px 22px; }
+.unsure-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+.unsure h3 { margin: 0; font: 700 19px/1.3 var(--serif); }
+.unsure p { margin: 3px 0 0; font-size: 13px; color: var(--ink-2); }
+.urow { display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; align-items: center; padding: 10px 0 0; border-top: 1px solid rgba(162,101,12,.25); margin-top: 10px; }
+.urow:first-of-type { margin-top: 14px; }
+.urow .t { width: 56px; height: 42px; border-radius: 2px; background: #fff center/cover; display: grid; place-items: center; font: 500 10px var(--mono); color: var(--ink-3); border: 1px solid rgba(0,0,0,.06); }
+.urow .n { font-weight: 500; font-size: 14px; }
+.urow .p { font: 11.5px var(--mono); color: var(--ink-3); }
+.urow .acts { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+.chip { border: 1px solid var(--ink-2); background: #fff; border-radius: 999px; padding: 3px 11px; font-size: 12.5px; color: var(--ink); }
+.chip:hover { background: var(--ink); color: #fff; }
+.chip small { font-family: var(--mono); color: var(--ink-3); margin-left: 4px; }
+.chip:hover small { color: #ccc; }
+select.mini { border: 1px solid var(--rule); background: #fff; border-radius: 999px; padding: 3px 8px; font-size: 12.5px; color: var(--ink-2); }
+.skipped { margin: 30px 0 0; font-size: 13px; color: var(--ink-2); display: flex; gap: 14px; align-items: center; }
+.skipped::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); }
+
+/* items */
+.items { margin-top: 40px; }
+.item { display: grid; grid-template-columns: 56px 1fr; gap: 0 18px; padding: 26px 0 28px; border-top: 1px solid var(--rule); }
+.item:first-child { border-top: 2px solid var(--ink); }
+.ino { font: 900 34px/1 var(--serif); color: var(--ink); padding-top: 2px; }
+.ino.ok { color: var(--green); }
+.ihead { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.ititle { font: 700 21px/1.3 var(--serif); margin: 0; }
+.tag { font: 500 11px/1 var(--sans); padding: 4px 7px; border-radius: 2px; letter-spacing: .04em; }
+.tag.req { background: var(--red); color: #fff; }
+.tag.opt { border: 1px solid var(--rule); color: var(--ink-3); }
+.istate { margin-left: auto; font-size: 12.5px; color: var(--ink-3); }
+.istate.ok { color: var(--green); font-weight: 500; }
+.istate.none { color: var(--ink-2); }
+.istate.miss { color: var(--red); }
+.iask { margin: 4px 0 0; color: var(--ink-2); font-size: 14px; }
+.ihow { display: flex; flex-wrap: wrap; gap: 2px 16px; margin-top: 4px; font-size: 12px; color: var(--ink-3); }
+.ihow span::before { content: "→ "; color: var(--red); font-family: var(--mono); }
+.tiles { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.tile { width: 104px; border: 1px solid var(--rule); background: var(--card); border-radius: 3px; padding: 0; text-align: left; position: relative; overflow: hidden; }
+.tile:hover { border-color: var(--ink-2); }
+.tile.sel { outline: 2px solid var(--ink); outline-offset: 1px; }
+.tile .im { height: 72px; background: var(--paper-2) center/cover; display: grid; place-items: center; font: 500 11px var(--mono); color: var(--ink-3); }
+.tile .im.doc { background: #fff; border-bottom: 1px solid var(--rule); }
+.tile .cap { padding: 4px 6px 5px; font-size: 11px; line-height: 1.35; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tile .by { position: absolute; top: 4px; left: 4px; font: 500 9.5px/1 var(--sans); padding: 3px 4px; border-radius: 2px; background: rgba(255,255,255,.88); color: var(--ink-2); }
+.tile .by.client { background: var(--ink); color: #fff; }
+.tile .st { position: absolute; top: 4px; right: 4px; width: 16px; height: 16px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; color: #fff; }
+.tile .st.wip { background: var(--amber); animation: pulse 1s infinite; }
+.tile .st.bad { background: var(--red); }
+.tile.fresh { animation: land .45s cubic-bezier(.2,1.4,.4,1) both; }
+.ifoot { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; margin-top: 12px; font-size: 13px; color: var(--ink-2); }
+.ifoot label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.ifoot input[type=checkbox] { accent-color: var(--red); }
+.note { flex: 1 1 260px; border: 0; border-bottom: 1px solid var(--rule); background: transparent; padding: 4px 2px; color: var(--ink); outline: none; font-size: 13px; }
+.note:focus { border-color: var(--ink); }
+.own { margin-top: 12px; border: 1px dashed var(--rule); border-radius: 3px; padding: 12px 14px; font-size: 13px; color: var(--ink-3); display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.own.over { border-color: var(--red); color: var(--red); background: var(--card); }
+
+/* drawer */
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 440px; max-width: 100%; background: var(--card); border-left: 1px solid var(--rule); box-shadow: -18px 0 40px rgba(30,28,24,.08); z-index: 45; overflow-y: auto; padding: 66px 26px 120px; transform: translateX(100%); transition: transform .25s; }
+.drawer.open { transform: none; }
+.drawer .x { position: absolute; top: 18px; left: 22px; border: 0; background: none; font-size: 22px; color: var(--ink-3); }
+.drawer h3 { font: 700 19px/1.35 var(--serif); margin: 0; word-break: break-all; }
+.drawer .dp { font: 11.5px var(--mono); color: var(--ink-3); margin-top: 2px; word-break: break-all; }
+.dsec { margin-top: 22px; }
+.dsec h4 { margin: 0 0 8px; font: 500 11px var(--mono); letter-spacing: .12em; color: var(--ink-3); }
+.assign { background: #fff; border: 1px solid var(--rule); padding: 12px 14px; border-radius: 3px; font-size: 13.5px; }
+.assign .why { font-size: 12px; color: var(--ink-3); margin-top: 4px; }
+.assign select { margin-top: 8px; width: 100%; padding: 6px 8px; border: 1px solid var(--rule); background: var(--card); border-radius: 2px; }
+.xform { font: 12px var(--mono); color: var(--ink-2); }
+.xform .ar { color: var(--red); padding: 0 6px; }
+.xform .af { color: var(--green); }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.compare figure { margin: 0; }
+.compare figcaption { font: 10.5px var(--mono); color: var(--ink-3); margin-bottom: 4px; }
+.compare .img { aspect-ratio: 3/2; background: center/cover; border-radius: 2px; }
+.compare .gone { aspect-ratio: 3/2; border: 1px dashed var(--rule); display: grid; place-items: center; font-size: 12px; color: var(--ink-3); text-align: center; border-radius: 2px; }
+.art { padding: 12px 0; border-top: 1px solid var(--rule); }
+.art:first-of-type { border-top: 0; padding-top: 0; }
+.art .ah { font-size: 12.5px; color: var(--ink-2); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+.art .ah b { color: var(--ink); font-weight: 500; }
+.art .ah span { font: 11px var(--mono); color: var(--ink-3); white-space: nowrap; }
+.art .lost { font-size: 12.5px; color: var(--ink-2); margin-top: 8px; }
+.art .lost::before { content: "丢掉的："; color: var(--red); }
+.sheet { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: #111; padding: 2px; border-radius: 2px; }
+.sheet div { aspect-ratio: 16/9; background: center/cover; position: relative; }
+.sheet span { position: absolute; left: 3px; bottom: 2px; font: 9px var(--mono); color: #fff; text-shadow: 0 1px 2px #000; }
+.tgrid { display: grid; gap: 2px; width: 72%; }
+.tgrid div { aspect-ratio: 1; background: center/cover; outline: 1px solid rgba(194,59,34,.4); }
+.pages { display: flex; gap: 6px; overflow-x: auto; }
+.pages div { flex: 0 0 62px; height: 84px; background: #fff; border: 1px solid var(--rule); position: relative; padding: 7px 6px; }
+.pages i { display: block; height: 3px; background: var(--paper-2); margin-bottom: 5px; }
+.pages .scan { background: #ece9e2; } .pages .scan i { background: #c9c3b6; }
+.pages span { position: absolute; bottom: 2px; right: 4px; font: 9px var(--mono); color: var(--ink-3); }
+.md { background: #fff; border: 1px solid var(--rule); padding: 10px 12px; font: 11.5px/1.6 var(--mono); color: var(--ink-2); white-space: pre-wrap; max-height: 160px; overflow: hidden; position: relative; }
+.md::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 36px; background: linear-gradient(transparent, #fff); }
+.fail { color: var(--red); font-size: 13px; background: rgba(194,59,34,.06); padding: 10px 12px; border-radius: 3px; }
+
+/* submit bar */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--ink); color: var(--paper); }
+.bar .in { max-width: 1120px; margin: 0 auto; padding: 15px 40px; display: flex; align-items: center; gap: 22px; }
+.bar .msg { flex: 1; font-size: 14px; }
+.bar .msg b { font: 700 19px var(--serif); margin-right: 12px; }
+.bar .msg span { color: #b5ad9f; }
+.bar .btn { background: var(--red); border-color: var(--red); padding: 12px 26px; font-size: 15px; }
+.bar .btn:disabled { background: #3a3732; border-color: #3a3732; color: #7d776c; }
+
+/* done */
+.done { max-width: 760px; margin: 0 auto; padding: 96px 40px 120px; }
+.done .big { font: 900 60px/1.05 var(--serif); margin: 18px 0; }
+.done .big em { font-style: normal; color: var(--red); }
+.done p { color: var(--ink-2); }
+.receipt { margin: 36px 0 28px; background: var(--card); border: 1px solid var(--rule); padding: 24px 28px; }
+.receipt h4 { margin: 0 0 12px; font: 500 12px var(--mono); letter-spacing: .14em; color: var(--ink-3); }
+.receipt table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.receipt td { padding: 9px 0; border-bottom: 1px dashed var(--rule); vertical-align: top; }
+.receipt td:first-child { width: 34%; font-weight: 500; }
+.receipt td:last-child { color: var(--ink-2); }
+.receipt .names { font: 12px var(--mono); color: var(--ink-3); margin-top: 3px; }
+.lock { font-size: 13px; color: var(--ink-3); border-left: 2px solid var(--rule); padding-left: 12px; margin: 20px 0; }
+
+/* agent */
+.agent { background: var(--night); color: var(--night-ink); min-height: 100vh; padding: 64px 40px 80px; }
+.agent .wrap { max-width: 1260px; margin: 0 auto; }
+.agent .kicker { color: var(--night-dim); }
+.agent h1 { font: 700 34px/1.2 var(--serif); margin: 12px 0 6px; color: #f3eee4; }
+.agent .sub { color: var(--night-dim); margin: 0 0 32px; font-size: 14px; max-width: 900px; }
+.agent .sub code { font-family: var(--mono); color: var(--night-ink); }
+.agrid { display: grid; grid-template-columns: 370px 1fr; gap: 26px; }
+.panel { background: var(--night-2); border: 1px solid var(--night-rule); border-radius: 4px; overflow: hidden; }
+.ph { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--night-rule); font: 500 12px var(--mono); color: var(--night-dim); }
+.ph .tabs button { background: none; border: 0; color: var(--night-dim); font: 500 12px var(--mono); padding: 2px 8px; }
+.ph .tabs button.on { color: #f3eee4; border-bottom: 1px solid var(--red); }
+.cmd { padding: 14px 16px; font: 12px/1.7 var(--mono); color: var(--night-dim); border-bottom: 1px solid var(--night-rule); word-break: break-all; }
+.cmd b { color: #e9a38f; font-weight: 400; }
+.snap { padding: 4px 16px 16px; font-size: 13px; }
+.snap .si { padding: 11px 0; border-bottom: 1px solid var(--night-rule); }
+.snap .si:last-child { border: 0; }
+.snap .sk { font: 12px var(--mono); color: #e9a38f; }
+.snap .st { color: #f3eee4; font-weight: 500; }
+.snap .sp { font: 11.5px/1.7 var(--mono); color: var(--night-dim); margin-top: 3px; }
+.snap .sp em { color: #9fc3b5; font-style: normal; }
+.mapv { padding: 22px 26px 30px; font-size: 14px; max-height: 78vh; overflow: auto; }
+.mapv h2 { font: 700 20px var(--serif); color: #f3eee4; margin: 0 0 4px; }
+.mapv .mm { font: 12px var(--mono); color: var(--night-dim); margin-bottom: 14px; }
+.mapv h3 { font: 700 15px var(--serif); color: #f3eee4; margin: 22px 0 8px; padding-top: 14px; border-top: 1px solid var(--night-rule); }
+.mapv h3 small { font: 12px var(--mono); color: var(--night-dim); margin-left: 8px; font-weight: 400; }
+.mapv .q { border-left: 2px solid var(--red); padding: 2px 10px; color: #e7e1d6; margin: 6px 0 10px; font-size: 13px; }
+.mapv .q::before { content: "对方原话："; color: var(--night-dim); }
+.mapv table { width: 100%; border-collapse: collapse; font: 12px/1.55 var(--mono); }
+.mapv th { text-align: left; color: var(--night-dim); font-weight: 400; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--night-rule); }
+.mapv td { padding: 7px 10px 7px 0; border-bottom: 1px solid #25292d; vertical-align: top; color: var(--night-ink); }
+.mapv td.lost { color: #d6a08f; }
+.mapv .by-m { color: #e0c88a; } .mapv .by-c { color: #9fc3b5; }
+.mapv .desc { color: #b9c7e6; margin-top: 4px; font-family: var(--sans); font-size: 12.5px; }
+.mapv .desc::before { content: attr(data-l); color: var(--night-dim); }
+.mapv .dim { color: var(--night-dim); font: 12px var(--mono); }
+pre.json { margin: 0; padding: 20px 22px; font: 12px/1.6 var(--mono); color: #cfcac0; max-height: 78vh; overflow: auto; }
+pre.json .k { color: #9fc3b5; } pre.json .s { color: #e9b9a6; } pre.json .n { color: #e0c88a; }
+.empty-agent { padding: 60px 30px; text-align: center; color: var(--night-dim); }
+.empty-agent .btn { margin-top: 16px; background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes land { from { opacity: 0; transform: translateY(-14px) scale(.9); } to { opacity: 1; transform: none; } }
+@keyframes pulse { 50% { opacity: .45; } }
+.intro .mast, .intro .hero, .intro .item, .intro .done { animation: rise .55s both; }
+.intro .hero { animation-delay: .06s; }
+
+@media (max-width: 860px) {
+  .client { padding: 56px 18px 160px; }
+  .mast { grid-template-columns: 1fr; } .meta { text-align: left; }
+  .mast h1 { font-size: 36px; }
+  .hero { grid-template-columns: 1fr; padding: 30px 22px; }
+  .item { grid-template-columns: 1fr; }
+  .urow { grid-template-columns: 56px 1fr; } .urow .acts { grid-column: 1 / -1; justify-content: flex-start; }
+  .agrid { grid-template-columns: 1fr; }
+  .bar .in { padding: 14px 18px; }
+}
+</style>
+</head>
+<body>
+<nav class="switch" id="switch">
+  <span class="lbl">MOCKUP</span>
+  <select id="tplSel" title="示例模板"></select>
+  <button data-view="client" class="on">对方：交资料</button>
+  <button data-view="done">对方：已提交</button>
+  <button data-view="agent">agent：结果</button>
+</nav>
+<div id="app"></div>
+<aside class="drawer" id="drawer"></aside>
+
+<script>
+/* =====================================================================
+   引擎（通用）——这里不出现任何领域词。领域只在最下面的 FIXTURES 里。
+   ===================================================================== */
+
+const KIND_ZH = { image: "图片", video: "视频", pdf: "PDF", doc: "文档", sheet: "表格", slides: "演示文稿", text: "文本", audio: "录音", any: "其他文件" };
+
+/* 操作表（docs/format.md §2.2）。say = 对方看到的说法；model 类不显示给对方 */
+const OPS = {
+  "image.resize": { accepts: ["image"], where: "browser", cls: "lossy", defaults: { longEdge: 1600, format: "webp", quality: .82 },
+    say: (p) => `缩到长边 ${p.longEdge}px`,
+    run: (s, p) => { const k = Math.min(1, p.longEdge / Math.max(s.w, s.h)); const w = Math.round(s.w * k), h = Math.round(s.h * k);
+      return { w, h, mime: `image/${p.format}`, bytes: Math.round(w * h * (p.format === "png" ? .5 : .13)),
+        lost: k < 1 ? `分辨率 ${s.w}×${s.h} → ${w}×${h}；EXIF 已去除` : `尺寸未变，重新编码为 ${p.format.toUpperCase()}；EXIF 已去除` }; } },
+  "image.tile": { accepts: ["image"], where: "browser", cls: "lossy", defaults: { tile: 1024, overlap: 64, format: "webp", quality: .82 },
+    say: (p) => `切成 ${p.tile}px 小块，保留原分辨率`,
+    run: (s, p) => { const c = Math.ceil(s.w / p.tile), r = Math.ceil(s.h / p.tile);
+      return { tiles: c * r, cols: c, mime: "image/webp", bytes: c * r * 96000, lost: `按 ${p.tile}px 切成 ${c}×${r} 块（重叠 ${p.overlap}px）；EXIF 已去除` }; } },
+  "video.frames": { accepts: ["video"], where: "browser", cls: "lossy", defaults: { count: 8, longEdge: 960, sheet: true, cols: 4 },
+    say: (p) => `抽 ${p.count} 帧，原片不上传`,
+    run: (s, p) => { const k = Math.min(1, p.longEdge / Math.max(s.w, s.h));
+      return { w: Math.round(s.w * k), h: Math.round(s.h * k), frames: [...Array(p.count)].map((_, i) => +(s.dur * i / (p.count - 1)).toFixed(1)),
+        mime: "image/webp", bytes: p.count * 42000 + 260000, lost: `${s.dur} 秒只保留 ${p.count} 帧` + (s.audio ? "；声音不在这个产物里" : "") }; } },
+  "pdf.markdown": { accepts: ["pdf"], where: "server", cls: "lossy", defaults: {},
+    say: () => `取出文字`,
+    run: (s) => ({ text: s.md ?? "", mime: "text/markdown", bytes: s.scan ? 120 : 16000, lost: s.scan ? "文字层几乎为空（扫描件），文字只在页面图里" : "版式与图片丢失，只保留文字与表格" }) },
+  "pdf.pages": { accepts: ["pdf"], where: "browser", cls: "lossy", defaults: { maxPages: 30, longEdge: 1600, format: "webp" },
+    say: (p) => `每页渲染成图`,
+    run: (s, p) => { const n = Math.min(s.pages, p.maxPages); return { pages: n, mime: "image/webp", bytes: n * 180000, lost: `${n}/${s.pages} 页渲染为长边 ${p.longEdge}px 的图` }; } },
+  "doc.markdown": { accepts: ["doc", "sheet"], where: "server", cls: "lossy", defaults: {},
+    say: () => `转成文字和表格`,
+    run: (s) => ({ text: s.md ?? "", mime: "text/markdown", bytes: 9600, lost: s.kind === "sheet" ? "公式、格式、图表丢失，只保留单元格的值" : "版式与图片丢失，只保留文字与表格" }) },
+  "slides.text": { accepts: ["slides"], where: "browser", cls: "lossy", defaults: {},
+    say: () => `取出每页文字`,
+    run: (s) => ({ text: s.md ?? "", mime: "text/markdown", bytes: 7200, lost: `${s.slides} 页的版式和图片丢失，只保留文字框与备注` }) },
+  "text.keep": { accepts: ["text"], where: "browser", cls: "exact", defaults: { maxBytes: 1048576 },
+    say: () => `原样保留`,
+    run: (s) => ({ text: s.md ?? "", mime: "text/plain", bytes: s.bytes }) },
+  "describe": { accepts: ["image", "video", "pdf"], where: "server", cls: "model", defaults: { model: "@cf/deepseek-ai/deepseek-v4.1-flash-1017", maxTokens: 400, reasoning: "none" },
+    say: null,
+    estimate: (s, p) => 1100 * 0.30e-6 + p.maxTokens * 1.2e-6,     // 输入（图）+ 最多输出
+    run: (s) => ({ text: s.desc ?? "", mime: "text/plain", used: 0.00045 }) },
+  "transcribe": { accepts: ["audio", "video"], where: "server", cls: "model", defaults: { model: "@cf/openai/whisper-large-v3-turbo", language: "zh", vad: true },
+    say: () => `录音转成文字，录音本身不上传`,
+    applies: (s) => s.kind === "audio" || !!s.audio,
+    estimate: (s) => Math.ceil(s.dur / 60) * 0.000513,
+    run: (s) => ({ text: s.tr ?? "", segments: s.tr ? [{ start: 0, end: Math.min(6.2, s.dur), text: s.tr.split(/[，。]/)[0] }] : [], mime: "text/markdown", used: (s.dur / 60) * 0.000513 }) },
+  "file.keep": { accepts: ["image", "video", "pdf", "doc", "sheet", "slides", "text", "audio", "any"], where: "upload", cls: "exact", defaults: { maxBytes: 209715200 },
+    say: () => `上传原件（提交时）`,
+    run: (s) => ({ mime: s.mime, bytes: s.bytes }) },
+};
+const SORT_MODEL = "@cf/cloudflare/clef-flash";
+const SORT_ESTIMATE = (s) => visual(s.kind) || s.kind === "pdf" ? 1100 * 0.038e-6 : 700 * 0.038e-6; // 图片 token 上限 + 文字
+
+/* 模板 → 快照（这里没有覆盖，只展开默认值；§5） */
+const expand = (step) => ({ ...OPS[step.op].defaults, ...step });
+const resolve = (tpl) => ({
+  id: "inv_" + tpl.id.slice(0, 3) + "7Kq2", ref: tpl.ref, template: { id: tpl.id, version: tpl.version },
+  title: tpl.title, requester: tpl.requester, intro: tpl.intro, expiresAt: tpl.expiresAt, rounds: "many",
+  pipeline: Object.fromEntries(Object.entries(tpl.pipeline).map(([k, ops]) => [k, ops.map(expand)])),
+  sort: { model: SORT_MODEL, ...tpl.sort },
+  budget: tpl.invite?.budget ?? null,
+  items: tpl.items.map((it) => ({ ...it, pipeline: Object.fromEntries(Object.entries(it.pipeline ?? {}).map(([k, ops]) => [k, ops.map(expand)])) })),
+});
+const pipelineFor = (key, kind) => (key && itemOf(key)?.pipeline[kind]) || INV.pipeline[kind] || [];
+
+/* ---------- 状态 ---------- */
+let TPL, INV, S;
+const fresh = () => ({ view: S?.view ?? "client", round: 1, files: [], rejected: [], ignored: 0, started: false,
+  none: {}, notes: {}, skipped: false, submitted: [], sel: null, own: {}, agentTab: "map", showRej: false, cache: new Map(),
+  money: S?.money ?? { spent: 0, reserved: 0 }, usage: { usd: 0, calls: { sort: 0, describe: 0, transcribe: 0 }, skipped: { budget: 0 } } });
+let seq = 0;
+const nid = () => "f_" + String(++seq).padStart(2, "0");
+
+/* ---------- 工具 ---------- */
+const $ = (s) => document.querySelector(s);
+const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const size = (n) => n < 1024 ? `${n} B` : n < 1048576 ? `${Math.round(n / 1024)} KB` : `${(n / 1048576).toFixed(1)} MB`;
+const base = (p) => p.split("/").pop();
+const dir = (p) => p.split("/").slice(0, -1).join("/");
+const ext = (p) => base(p).split(".").pop().toUpperCase();
+const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
+const hex = (n) => [...Array(n)].map(() => "0123456789abcdef"[Math.floor(Math.random() * 16)]).join("");
+const pct = (p) => `${Math.round(p * 100)}%`;
+const itemOf = (key) => INV.items.find((i) => i.key === key);
+const accepts = (key, kind) => !!itemOf(key)?.accept.includes(kind);
+const svgUri = (svg) => "data:image/svg+xml;utf8," + encodeURIComponent(svg).replace(/'/g, "%27");
+const photo = (hue, v = 0, mark = false) => {
+  if (mark) return svgUri(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect width='300' height='200' fill='#fff'/><circle cx='150' cy='92' r='48' fill='hsl(${hue},60%,45%)'/><path d='M124 104 L150 66 L176 104 Z' fill='#fff'/></svg>`);
+  const a = (hue + v * 17) % 360, b = (hue + 40 + v * 9) % 360, cx = 110 + (v * 37) % 90, cy = 90 + (v * 23) % 40, r = 38 + (v * 11) % 26;
+  return svgUri(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200' preserveAspectRatio='xMidYMid slice'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='hsl(${a},38%,82%)'/><stop offset='1' stop-color='hsl(${b},30%,58%)'/></linearGradient></defs><rect width='100%' height='100%' fill='url(#g)'/><rect y='136' width='100%' height='64' fill='hsl(${a},22%,40%)' opacity='.35'/><ellipse cx='${cx}' cy='${cy + r * .95}' rx='${r * 1.1}' ry='${r * .18}' fill='#000' opacity='.18'/><rect x='${cx - r * .7}' y='${cy - r * .9}' width='${r * 1.4}' height='${r * 1.75}' rx='${r * .25}' fill='hsl(${a},45%,32%)'/><rect x='${cx - r * .5}' y='${cy - r * .7}' width='${r * .3}' height='${r * 1.3}' rx='4' fill='#fff' opacity='.25'/></svg>`);
+};
+const visual = (k) => k === "image" || k === "video";
+const thumbStyle = (s, v = 0) => visual(s.kind) ? `background-image:url('${photo(s.hue, v, s.mark)}')` : "";
+
+/* ---------- 产物 = f(sha256, op, params)，邀请内缓存（§2.1） ---------- */
+const akey = (f, step) => `${f.sha256}|${JSON.stringify(step)}`;
+/* 费用：先预留（按最坏情况）再结算，所以已花永远 ≤ 上限（§3.4） */
+const reserve = (est) => {
+  if (INV.budget && S.money.spent + S.money.reserved + est > INV.budget.usd) return false;
+  S.money.reserved += est; return true;
+};
+const settleCost = (est, used, kind) => { S.money.reserved -= est; S.money.spent += used; S.usage.usd += used; S.usage.calls[kind]++; };
+const compute = (f, step) => {
+  const k = akey(f, step);
+  if (!S.cache.has(k)) {
+    const { op, ...params } = step, O = OPS[op];
+    const head = { op, params, cls: O.cls, where: O.where };
+    if (O.applies && !O.applies(f.src)) S.cache.set(k, { ...head, status: "skipped", reason: "not-applicable" });
+    else if (O.cls === "model") {
+      const est = O.estimate(f.src, params);
+      if (!reserve(est)) { S.usage.skipped.budget++; S.cache.set(k, { ...head, status: "skipped", reason: "budget" }); }
+      else { const out = O.run(f.src, params); settleCost(est, out.used, op); S.cache.set(k, { ...head, ...out }); }
+    } else S.cache.set(k, { ...head, ...O.run(f.src, params) });
+  }
+  return S.cache.get(k);
+};
+const missing = (f, steps) => steps.filter((s) => !S.cache.has(akey(f, s)));
+
+/* ---------- 规格 ---------- */
+const specOf = (s) => s.kind === "image" ? `${ext(s.path)} · ${s.w}×${s.h} · ${size(s.bytes)}`
+  : s.kind === "video" ? `${ext(s.path)} · ${mmss(s.dur)} · ${size(s.bytes)}`
+  : s.kind === "pdf" ? `PDF · ${s.pages} 页 · ${size(s.bytes)}`
+  : s.kind === "slides" ? `${ext(s.path)} · ${s.slides} 页 · ${size(s.bytes)}`
+  : s.kind === "audio" ? specAudio(s)
+  : `${ext(s.path)} · ${size(s.bytes)}`;
+const afterOf = (arts) => {
+  const vis = arts.filter((a) => a.cls !== "model" && a.op !== "file.keep" && a.status !== "skipped"), a = vis[0];
+  const keep = arts.find((x) => x.op === "file.keep");
+  if (!a) return keep ? `原件 · ${size(keep.bytes)}` : arts.some((x) => x.op === "transcribe" && x.status !== "skipped") ? "文字" : "";
+  const total = vis.reduce((n, x) => n + (x.bytes || 0), 0);
+  if (a.op === "image.resize") return `${a.params.format.toUpperCase()} · ${a.w}×${a.h} · ${size(a.bytes)}`;
+  if (a.op === "image.tile") return `${a.tiles} 块 · ${size(a.bytes)}`;
+  if (a.op === "video.frames") return `${a.frames.length} 帧 · ${size(a.bytes)}`;
+  if (a.op === "pdf.markdown") return `文字${vis[1] ? ` + ${vis[1].pages} 页图` : ""} · ${size(total)}`;
+  if (a.op === "pdf.pages") return `${a.pages} 页图 · ${size(a.bytes)}`;
+  return `文字 · ${size(total)}`;
+};
+const specAudio = (s) => `${ext(s.path)} · ${mmss(s.dur)} · ${size(s.bytes)}`;
+
+/* ---------- 每个文件独立走：识别 → 处理 → 上传 → 归类 → 落位 → 补算（§3.3） ---------- */
+const queue = [];
+let running = 0, gen = 0;
+const pump = () => { const g = gen; while (running < 3 && queue.length) { running++; const f = queue.shift(); work(f).finally(() => { if (g !== gen) return; running--; pump(); }); } };
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const stage = (f, s) => { f.stage = s; if (S.files.includes(f)) render(); };
+
+const work = async (f) => {
+  stage(f, "识别类型"); await sleep(180);
+  if (f.src.fail) { stage(f, "处理中"); await sleep(800); f.status = "failed"; f.failure = f.src.fail; render(); return; }
+  const target = f.assignment?.by === "client" ? f.assignment.item : null;
+  for (const step of missing(f, pipelineFor(target, f.src.kind).filter((s) => OPS[s.op].cls !== "model"))) {
+    stage(f, OPS[step.op].where === "server" ? "服务器转换中" : "处理中");
+    await sleep(f.src.kind === "video" ? 1300 : 450 + Math.random() * 400);
+    compute(f, step);
+  }
+  stage(f, "上传中"); await sleep(250 + Math.random() * 250);
+  if (!target) { stage(f, "分类中"); await sleep(350 + Math.random() * 500); sortFile(f); }
+  f.status = "done"; f.fresh = true;
+  await settle(f);
+};
+
+/* 选项 = 收集项 + none；最高分 ≥ 阈值、不是 none、该项收这个类型，才落位（§3.2） */
+const sortFile = (f) => {
+  const est = SORT_ESTIMATE(f.src);
+  if (!reserve(est)) { S.usage.skipped.budget++; f.assignment = { item: null, by: "none", p: 0, scores: {}, candidates: INV.items.filter((i) => i.accept.includes(f.src.kind)).slice(0, 2).map((i) => [i.key, 0]), reason: "budget" }; return; }
+  settleCost(est, est * .8, "sort");
+  const scores = f.src.sim ?? { none: 1 };
+  const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const [top, p] = ranked[0];
+  if (top !== "none" && p >= INV.sort.threshold && accepts(top, f.src.kind)) { f.assignment = { item: top, by: "model", p, scores }; return; }
+  const candidates = ranked.filter(([k]) => k !== "none" && accepts(k, f.src.kind)).slice(0, 2);
+  f.assignment = { item: null, by: "none", p, scores, candidates };
+};
+
+/* 归属定了以后，补算这一项要、缓存里还没有的产物 */
+const settle = async (f) => {
+  const steps = pipelineFor(f.assignment?.item, f.src.kind);
+  const miss = missing(f, steps);
+  if (miss.length) {
+    f.status = "wip";
+    for (const step of miss) { stage(f, OPS[step.op].cls === "model" ? "处理中" : "按这一项再处理"); await sleep(500 + Math.random() * 400); compute(f, step); }
+    f.status = "done";
+  }
+  f.artifacts = steps.map((s) => compute(f, s));
+  render();
+};
+
+const addFiles = (srcs, toItem = null) => {
+  S.started = true;
+  for (const src of srcs) {
+    if (src.ignore) { S.ignored++; continue; }
+    if (src.reject) { S.rejected.push(src); continue; }
+    if (!INV.items.some((i) => i.accept.includes(src.kind))) { S.rejected.push({ ...src, reject: `这次不收${KIND_ZH[src.kind] ?? "这种文件"}。` }); continue; }
+    const own = toItem && accepts(toItem, src.kind) ? toItem : null; // 这一项不收的类型转入总区
+    const f = { id: nid(), src, sha256: hex(64), status: "wip", stage: "排队", assignment: own ? { item: own, by: "client" } : null };
+    S.files.push(f); queue.push(f);
+  }
+  render(); pump();
+};
+const reassign = (fid, key) => {
+  const f = S.files.find((x) => x.id === fid); if (!f || !key) return;
+  f.assignment = { item: key, by: "client", scores: f.assignment?.scores };
+  f.fresh = true; S.none[key] = false;
+  settle(f); render();
+};
+const retry = (fid) => {
+  const f = S.files.find((x) => x.id === fid);
+  f.src = { ...f.src.fix }; f.status = "wip"; f.failure = null; f.sha256 = hex(64); queue.push(f); pump(); render();
+};
+const removeFile = (fid) => { S.files = S.files.filter((f) => f.id !== fid); if (S.sel === fid) S.sel = null; render(); };
+
+/* ---------- 可提交（§6）：未分类不挡 ---------- */
+const readiness = () => {
+  const items = INV.items.map((it) => {
+    const n = S.files.filter((f) => f.status === "done" && f.assignment?.item === it.key).length;
+    return { it, n, state: S.none[it.key] ? "none" : n ? "ok" : "todo" };
+  });
+  const wip = S.files.filter((f) => f.status === "wip").length;
+  const failed = S.files.filter((f) => f.status === "failed");
+  const unsure = S.files.filter((f) => f.status === "done" && !f.assignment?.item);
+  const missingReq = items.filter((x) => x.it.required && x.state === "todo");
+  const ok = S.files.some((f) => f.status === "done") && !wip && !failed.length && !missingReq.length;
+  return { items, wip, failed, unsure, missingReq, ok };
+};
+
+/* ---------- 输出（§8） ---------- */
+const manifestOf = () => {
+  const done = S.files.filter((f) => f.status === "done");
+  const files = {};
+  for (const f of done) {
+    const s = f.src, source = { kind: s.kind, mime: s.mime, bytes: s.bytes, sha256: f.sha256 };
+    if (s.w) Object.assign(source, { width: s.w, height: s.h });
+    if (s.dur) Object.assign(source, s.kind === "audio" ? { duration: s.dur } : { duration: s.dur, hasAudio: !!s.audio });
+    if (s.pages) source.pages = s.pages;
+    const a = f.assignment;
+    const assignment = a.by === "client" ? { item: a.item, by: "client", ...(a.scores ? { scores: a.scores } : {}) }
+      : a.reason ? { item: null, by: "none", reason: a.reason }
+      : { item: a.item ?? null, by: a.by, model: INV.sort.model, p: a.p, scores: a.scores };
+    const stem = `files/${f.id}`;
+    files[f.id] = { name: base(s.path), path: s.path, source, assignment,
+      artifacts: f.artifacts.map((x) => {
+        const o = { op: x.op, class: x.cls, params: x.params };
+        if (x.status === "skipped") return { ...o, status: "skipped", reason: x.reason };
+        if (x.op === "file.keep") return { ...o, path: `${stem}/original.${ext(s.path).toLowerCase()}`, mime: x.mime, bytes: x.bytes };
+        if (x.op === "transcribe") return { ...o, path: `${stem}/transcript.md`, text: x.text, segments: x.segments };
+        if (x.cls === "model") return { ...o, reads: [`${stem}/…`], text: x.text };
+        if (x.op === "image.resize") Object.assign(o, { path: `${stem}/${x.params.longEdge}.${x.params.format}`, mime: x.mime, bytes: x.bytes, width: x.w, height: x.h });
+        else if (x.op === "image.tile") Object.assign(o, { path: `${stem}/tiles/`, tiles: x.tiles, bytes: x.bytes });
+        else if (x.op === "video.frames") Object.assign(o, { path: `${stem}/sheet.webp`, frames: x.frames.map((t) => ({ t, path: `${stem}/t${String(Math.round(t)).padStart(4, "0")}.webp` })), bytes: x.bytes });
+        else if (x.op === "pdf.pages") Object.assign(o, { path: `${stem}/pages/`, pages: x.pages, bytes: x.bytes });
+        else Object.assign(o, { path: `${stem}/text.md`, mime: x.mime, bytes: x.bytes });
+        if (x.lost) o.lost = x.lost;
+        return o;
+      }) };
+  }
+  return { schema: "material-intake/2", invite: INV.id, ref: INV.ref, round: S.round, submittedAt: new Date().toISOString().replace(/\.\d+Z$/, "Z"),
+    usage: { usd: +S.usage.usd.toFixed(5), calls: S.usage.calls, skipped: S.usage.skipped },
+    items: INV.items.map((it) => {
+      const ids = done.filter((f) => f.assignment?.item === it.key).map((f) => f.id);
+      const o = { key: it.key, title: it.title, status: S.none[it.key] ? "none" : ids.length ? "provided" : "empty" };
+      if (S.notes[it.key]) o.note = S.notes[it.key];
+      o.files = ids; return o;
+    }),
+    unassigned: done.filter((f) => !f.assignment?.item).map((f) => f.id),
+    files };
+};
+const submit = () => { if (!readiness().ok) return; S.submitted.push({ round: S.round, manifest: manifestOf() }); S.sel = null; setView("done"); };
+const nextRound = () => { const keep = { submitted: S.submitted, round: S.round + 1, view: "client" }; S = { ...fresh(), ...keep }; setView("client"); };
+const demo = async () => {
+  dropFolder();
+  while (S.files.some((f) => f.status === "wip") || queue.length) await sleep(300);
+  for (const f of readiness().failed) removeFile(f.id);
+  for (const x of readiness().missingReq) if (x.it.allowNone) S.none[x.it.key] = true;
+  Object.assign(S.notes, TPL.fixtures.notes ?? {});
+  S.skipped = true;
+  submit(); setView("agent");
+};
+
+/* =====================================================================
+   渲染：对方（引擎文字中性；用途相关的文字全部来自 INV）
+   ===================================================================== */
+/* 对方页面上的承诺由快照推出来（§6），不写死 */
+const allSteps = (it) => Object.values(it.pipeline).flat();
+const usesOp = (op) => Object.values(INV.pipeline).flat().some((s) => s.op === op) || INV.items.some((it) => allSteps(it).some((s) => s.op === op));
+const promises = () => {
+  const keep = INV.items.filter((it) => allSteps(it).some((s) => s.op === "file.keep"));
+  const out = [keep.length ? `「${keep.map((i) => i.title).join("」「")}」会上传原件，其余只上传处理后的版本` : "原件留在您的电脑上，只上传处理后的版本"];
+  if (usesOp("pdf.markdown") || usesOp("doc.markdown")) out.push("文档经服务器转成文字，转完原件立刻删除");
+  if (usesOp("transcribe")) out.push("录音转成文字，录音本身不上传");
+  out.push("这个链接只能交，不能查看已交的资料");
+  return out;
+};
+const renderHero = (r) => {
+  const total = S.files.length, done = S.files.filter((f) => f.status !== "wip").length;
+  const placed = S.files.filter((f) => f.status === "done" && f.assignment?.item).length;
+  if (!S.started) return `<section class="hero" id="hero">
+      <div><h2>把资料<span>整个文件夹</span>拖进来</h2>
+      <p>不用先整理。每个文件处理完会自动分到下面对应的一项；拿不准的再请您看一眼。</p>
+      <ul>${promises().map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>
+      <button class="btn" data-act="drop">模拟拖入示例文件夹</button></section>`;
+  return `<section class="hero compact" id="hero"><div><h2>还有？继续拖进来</h2></div><span style="font-size:13px;color:var(--ink-3)">文件或文件夹都行</span></section>
+    <div class="live"><span><b>${done}/${total}</b>已处理</span><span><b>${placed}</b>已分好</span>${r.unsure.length ? `<span><b>${r.unsure.length}</b>拿不准</span>` : ""}
+      ${S.rejected.length ? `<button class="link rej" data-act="rej">${S.rejected.length} 个没收 ${S.showRej ? "▴" : "▾"}</button>` : ""}
+      ${S.ignored ? `<span class="rej">忽略 ${S.ignored} 个系统文件</span>` : ""}
+      <span class="meter"><i style="width:${total ? done / total * 100 : 0}%"></i></span></div>
+    ${S.showRej ? `<div class="rejected-list">${S.rejected.map((s) => `<div><s>${esc(s.path)}</s>${esc(s.reject)}</div>`).join("")}</div>` : ""}`;
+};
+
+const renderUnsure = (r) => {
+  if (!r.unsure.length) return "";
+  if (S.skipped) return `<div class="skipped">${r.unsure.length} 个拿不准的先放着，提交时会一起交上，我们之后再看。<button class="link" data-act="unskip">现在归一下</button></div>`;
+  const others = (f) => `<select class="mini" data-reassign="${f.id}"><option value="">其他…</option>${INV.items.filter((i) => i.accept.includes(f.src.kind)).map((i) => `<option value="${i.key}">${esc(i.title)}</option>`).join("")}</select>`;
+  return `<section class="unsure"><div class="unsure-head"><div><h3>这 ${r.unsure.length} 个我们拿不准</h3><p>点一下它属于哪一项。嫌麻烦也可以先跳过，提交时会一起交上。</p></div>
+    <button class="btn ghost sm" data-act="skip">先跳过</button></div>
+    ${r.unsure.map((f) => `<div class="urow"><div class="t" style="${thumbStyle(f.src)}">${visual(f.src.kind) ? "" : ext(f.src.path)}</div>
+      <div style="min-width:0"><div class="n">${esc(base(f.src.path))}</div><div class="p">${esc(dir(f.src.path))}/</div></div>
+      <div class="acts">${f.assignment.candidates.map(([k, p]) => `<button class="chip" data-pick="${f.id}" data-key="${k}">${esc(itemOf(k).title)}<small>${pct(p)}</small></button>`).join("")}${others(f)}</div></div>`).join("")}
+  </section>`;
+};
+
+const renderTile = (f) => {
+  const s = f.src, isFresh = f.fresh; f.fresh = false;
+  const by = f.assignment?.by === "client" ? `<span class="by client">您放的</span>` : f.assignment?.by === "model" ? `<span class="by">自动</span>` : "";
+  const st = f.status === "wip" ? `<span class="st wip"></span>` : f.status === "failed" ? `<span class="st bad">!</span>` : "";
+  return `<button class="tile ${S.sel === f.id ? "sel" : ""} ${isFresh ? "fresh" : ""}" data-open="${f.id}">
+    <div class="im ${visual(s.kind) ? "" : "doc"}" style="${thumbStyle(s)}">${visual(s.kind) ? "" : ext(s.path)}</div>${by}${st}<div class="cap">${esc(base(s.path))}</div></button>`;
+};
+
+const renderItem = (x, i) => {
+  const it = x.it;
+  const files = S.files.filter((f) => f.assignment?.item === it.key && f.status !== "failed");
+  const label = x.state === "ok" ? `<span class="istate ok">✓ ${x.n} 个</span>` : x.state === "none" ? `<span class="istate none">您说没有</span>` : it.required ? `<span class="istate miss">还没有</span>` : `<span class="istate">—</span>`;
+  const hasExtras = !!TPL.fixtures.extras?.[it.key];
+  return `<section class="item" id="item-${it.key}">
+    <div class="ino ${x.state === "ok" ? "ok" : ""}">${String(i + 1).padStart(2, "0")}</div>
+    <div>
+      <div class="ihead"><h2 class="ititle">${esc(it.title)}</h2><span class="tag ${it.required ? "req" : "opt"}">${it.required ? "必交" : "可选"}</span>${label}</div>
+      <p class="iask">${esc(it.ask)}</p>
+      <div class="ihow">${it.accept.map((k) => { const says = pipelineFor(it.key, k).map((st) => OPS[st.op].say?.(st)).filter(Boolean); return says.length ? `<span>${KIND_ZH[k]}：${esc(says.join("，"))}</span>` : ""; }).join("")}</div>
+      ${files.length ? `<div class="tiles">${files.map(renderTile).join("")}</div>` : ""}
+      ${S.own[it.key] ? `<div class="own" data-own="${it.key}"><span>拖文件或文件夹到这里，直接算「${esc(it.title)}」</span>${hasExtras ? `<button class="btn ghost sm" data-extra="${it.key}">模拟拖入</button>` : ""}</div>` : ""}
+      <div class="ifoot">
+        ${it.allowNone && !files.length ? `<label><input type="checkbox" data-none="${it.key}" ${S.none[it.key] ? "checked" : ""}/> 没有这项</label>` : ""}
+        ${it.note !== "off" ? `<input class="note" data-note="${it.key}" value="${esc(S.notes[it.key] ?? "")}" placeholder="${S.none[it.key] ? "为什么没有？（可选）" : "想补充一句？（可选）"}" />` : ""}
+        ${S.own[it.key] ? "" : `<button class="link" data-ownopen="${it.key}">单独补传</button>`}
+      </div>
+    </div></section>`;
+};
+
+const renderFailedStrip = () => {
+  const failed = S.files.filter((f) => f.status === "failed");
+  if (!failed.length) return "";
+  return `<section class="unsure" style="border-color:var(--red);background:rgba(194,59,34,.06)"><div class="unsure-head"><div><h3>${failed.length} 个文件没处理成功</h3><p>点开看原因，换一个文件或删掉。</p></div></div>
+    <div class="tiles">${failed.map(renderTile).join("")}</div></section>`;
+};
+
+const renderArtifact = (f, a) => {
+  const s = f.src; let body = "";
+  if (a.op === "image.resize") body = `<div class="compare"><figure><figcaption>您的原图 · ${s.w}×${s.h}</figcaption><div class="gone">留在您的电脑上</div></figure><figure><figcaption>我们收到的 · ${a.w}×${a.h}</figcaption><div class="img" style="background-image:url('${photo(s.hue, 0, s.mark)}')"></div></figure></div>`;
+  if (a.op === "image.tile") body = `<div class="tgrid" style="grid-template-columns:repeat(${a.cols},1fr)">${[...Array(a.tiles)].map((_, k) => `<div style="background-image:url('${photo(s.hue, k)}')"></div>`).join("")}</div>`;
+  if (a.op === "video.frames") body = `<div class="sheet">${a.frames.map((t, k) => `<div style="background-image:url('${photo(s.hue, k)}')"><span>${mmss(t)}</span></div>`).join("")}</div>`;
+  if (a.op === "pdf.pages") body = `<div class="pages">${[...Array(a.pages)].map((_, k) => `<div class="${s.scan ? "scan" : ""}"><i style="width:70%"></i><i></i><i style="width:85%"></i><i></i><span>${k + 1}</span></div>`).join("")}</div>`;
+  if (["pdf.markdown", "doc.markdown", "slides.text", "text.keep"].includes(a.op)) body = `<div class="md">${esc(a.text || "（几乎没有文字）")}</div>`;
+  if (a.op === "file.keep") body = `<div style="font-size:12.5px;color:var(--ink-2)">原件 ${esc(base(s.path))} · ${size(a.bytes)}，点「提交」时上传。</div>`;
+  return `<div class="art"><div class="ah"><b>${esc(OPS[a.op].say(a.params))}</b><span>${a.where === "server" ? "服务器 · 原件已删" : a.where === "upload" ? "原件" : "在您的浏览器里"}</span></div>${body}${a.lost ? `<div class="lost">${esc(a.lost)}</div>` : ""}</div>`;
+};
+
+const renderDrawer = () => {
+  const d = $("#drawer");
+  const f = S.files.find((x) => x.id === S.sel);
+  if (!f || S.view !== "client") { d.classList.remove("open"); return; }
+  const a = f.assignment;
+  const where = a?.by === "client" ? `您放在「${esc(itemOf(a.item).title)}」`
+    : a?.by === "model" ? `自动分到「${esc(itemOf(a.item).title)}」<span style="color:var(--ink-3)"> · 把握 ${pct(a.p)}</span>`
+    : f.status === "done" ? "还没归类" : f.status === "failed" ? "—" : "处理中…";
+  const opts = INV.items.filter((i) => i.accept.includes(f.src.kind)).map((i) => `<option value="${i.key}" ${a?.item === i.key ? "selected" : ""}>${esc(i.title)}</option>`).join("");
+  const visible = (f.artifacts ?? []).filter((x) => x.cls !== "model" && x.status !== "skipped");
+  const hidden = (f.artifacts ?? []).filter((x) => x.cls === "model" && OPS[x.op].say && x.status !== "skipped");
+  d.innerHTML = `<button class="x" data-act="close">×</button>
+    <h3>${esc(base(f.src.path))}</h3><div class="dp">${esc(f.src.path)}</div>
+    ${f.status === "failed" ? `<div class="dsec"><div class="fail">${esc(f.failure.reason)}</div><p style="display:flex;gap:10px">${f.src.fix ? `<button class="btn sm" data-retry="${f.id}">放入导出后的文件</button>` : ""}<button class="btn ghost sm" data-remove="${f.id}">删掉</button></p></div>` : `
+    <div class="dsec"><h4>归到</h4><div class="assign">${where}
+      ${a?.by === "model" ? `<div class="why">不对就改一下；不改也行。</div>` : ""}
+      ${f.status === "done" ? `<select data-reassign="${f.id}">${a?.item ? "" : `<option value="">选一项…</option>`}${opts}</select>` : ""}</div></div>`}
+    <div class="dsec"><h4>处理</h4><div class="xform">${esc(specOf(f.src))}${f.status === "done" ? `<span class="ar">→</span><span class="af">${esc(afterOf(f.artifacts ?? []))}</span>` : ""}</div></div>
+    ${visible.length || hidden.length ? `<div class="dsec"><h4>我们收到的就是这些</h4>${visible.map((x) => renderArtifact(f, x)).join("")}${hidden.map((x) => `<div class="art"><div class="ah"><b>${esc(OPS[x.op].say(x.params))}</b><span>服务器</span></div><div style="font-size:12.5px;color:var(--ink-3)">转出来的文字不在这里显示。</div></div>`).join("")}</div>` : ""}
+    ${f.status === "done" ? `<div class="dsec"><button class="link" data-remove="${f.id}">不交这个文件</button></div>` : ""}`;
+  d.classList.add("open");
+};
+
+const renderClient = () => {
+  const r = readiness();
+  const why = r.wip ? `还有 ${r.wip} 个在处理`
+    : r.failed.length ? `${r.failed.length} 个文件没处理成功`
+    : r.missingReq.length ? `必交还差：${r.missingReq.map((x) => x.it.title).join("、")}`
+    : r.ok ? (r.unsure.length ? `可以提交了（${r.unsure.length} 个拿不准的会一起交上）` : "都齐了，可以提交") : "还没有资料";
+  return `<div class="client">
+    <header class="mast"><div><div class="kicker">${esc(INV.requester)} 请您提供资料</div><h1>${esc(INV.title)}</h1><p>${esc(INV.intro)}</p></div>
+      <div class="meta">截止 <b>${INV.expiresAt}</b><br>可以分几次交<br>第 <b>${S.round}</b> 轮${S.submitted.length ? ` · 前 ${S.submitted.length} 轮已收到` : ""}</div></header>
+    ${renderHero(r)}${renderFailedStrip()}${renderUnsure(r)}
+    <div class="items">${r.items.map(renderItem).join("")}</div>
+  </div>
+  <div class="bar"><div class="in"><div class="msg"><b>第 ${S.round} 轮</b><span>${why}</span></div><button class="btn" data-act="submit" ${r.ok ? "" : "disabled"}>提交这一轮</button></div></div>`;
+};
+
+const renderDone = () => {
+  const last = S.submitted.at(-1);
+  if (!last) return `<div class="done"><div class="kicker">${esc(INV.requester)} 请您提供资料</div><div class="big">还没有<em>提交</em>过</div><p><button class="btn" data-act="demo">用示例交一轮</button></p></div>`;
+  const m = last.manifest, names = (ids) => ids.map((id) => esc(m.files[id].name)).join("　");
+  return `<div class="done"><div class="kicker">${esc(INV.requester)} · ${esc(INV.title)} · 第 ${m.round} 轮</div>
+    <div class="big">收到了，<em>谢谢</em>。</div>
+    <p>缺什么、要换什么，我们会再联系您；也可以随时用同一个链接再交一轮。</p>
+    <div class="receipt"><h4>回执 · ${m.submittedAt.slice(0, 16).replace("T", " ")}</h4><table>
+      ${m.items.map((it) => `<tr><td>${esc(it.title)}</td><td>${it.status === "provided" ? `${it.files.length} 个文件<div class="names">${names(it.files)}</div>` : it.status === "none" ? `没有${it.note ? `：${esc(it.note)}` : ""}` : "—"}</td></tr>`).join("")}
+      ${m.unassigned.length ? `<tr><td>未归类</td><td>${m.unassigned.length} 个文件<div class="names">${names(m.unassigned)}</div></td></tr>` : ""}
+    </table></div>
+    <div class="lock">为了安全，这个链接只显示文件名，不能预览或下载已经交过的资料。</div>
+    <button class="btn" data-act="next">再交一轮</button></div>`;
+};
+
+/* =====================================================================
+   渲染：agent
+   ===================================================================== */
+const jsonHtml = (v) => esc(JSON.stringify(v, null, 2))
+  .replace(/^(\s*)&quot;([^&]+)&quot;:/gm, '$1<span class="k">"$2"</span>:')
+  .replace(/: &quot;(.*?)&quot;(,?)$/gm, ': <span class="s">"$1"</span>$2')
+  .replace(/: (-?\d+\.?\d*)(,?)$/gm, ': <span class="n">$1</span>$2');
+const stepStr = (s) => { const { op, prompt, ...rest } = s; const d = OPS[op].defaults; const ps = Object.entries(rest).filter(([k, v]) => d[k] !== v && k !== "model").map(([k, v]) => `${k}=${v}`); if (prompt) ps.push("prompt=…"); return op + (ps.length ? `(${ps.join(" ")})` : ""); };
+
+const renderMap = (m) => {
+  const row = (id) => {
+    const f = m.files[id], s = f.source, a = f.assignment;
+    const orig = [s.kind === "any" || s.kind === "audio" ? s.kind : "", s.width ? `${s.width}×${s.height}` : "", s.duration ? `${s.duration}s${s.hasAudio ? " 有声" : ""}` : "", s.pages ? `${s.pages} 页` : "", size(s.bytes)].filter(Boolean).join(" · ");
+    const by = a.by === "client" ? `<span class="by-c">对方放的</span>` : a.by === "model" ? `<span class="by-m">自动 ${a.p.toFixed(2)}</span>` : a.reason ? `<span class="by-m">未分类：${a.reason}</span>` : `<span class="by-m">拿不准 ${a.p.toFixed(2)}</span>`;
+    const arts = f.artifacts;
+    const models = arts.filter((x) => x.class === "model" && !x.status).map((x) => `<div class="desc" data-l="${x.op === "transcribe" ? "模型转写：" : "模型描述："}">${esc(x.text)}</div>`).join("");
+    return arts.map((x, i) => `<tr>${i === 0 ? `<td rowspan="${arts.length}">${esc(f.path)}<br><span class="dim">${id} · ${by}</span>${models}</td><td rowspan="${arts.length}">${orig}</td>` : ""}<td>${x.op}${x.class === "model" ? ` <span class="dim">model</span>` : ""}<br><span class="dim">${x.status ? `跳过：${x.reason}` : esc(x.path)}</span></td><td class="lost">${esc(x.lost ?? (x.op === "file.keep" ? "（原件，无损）" : ""))}</td></tr>`).join("");
+  };
+  const table = (ids) => `<table><tr><th>文件 · 归属</th><th>原规格</th><th>产物</th><th>丢掉的</th></tr>${ids.map(row).join("")}</table>`;
+  return `<div class="mapv"><h2>资料地图 · ${esc(m.ref)} · 第 ${m.round} 轮</h2><div class="mm">${m.invite} · ${m.submittedAt} · 由 manifest.json 渲染，不写结论</div>
+    ${m.items.map((it) => `<h3>${esc(it.title)}<small>${it.key} · ${it.status}</small></h3>${it.note ? `<div class="q">${esc(it.note)}</div>` : ""}${it.files.length ? table(it.files) : `<div class="dim">${it.status === "none" ? "对方声明：没有" : "未交"}</div>`}`).join("")}
+    ${m.unassigned.length ? `<h3>未分类<small>对方跳过 · ${m.unassigned.length} 个</small></h3>${table(m.unassigned)}` : ""}
+    <h3>费用<small>这一轮</small></h3><div class="dim">$${m.usage.usd.toFixed(4)} · 归类 ${m.usage.calls.sort} 次 · 描述 ${m.usage.calls.describe} 次 · 转写 ${m.usage.calls.transcribe} 次${m.usage.skipped.budget ? ` · <span style="color:#d6a08f">因上限跳过 ${m.usage.skipped.budget} 次</span>` : ""}</div></div>`;
+};
+
+const renderAgent = () => {
+  const last = S.submitted.at(-1);
+  const pipe = (p) => Object.entries(p).map(([k, steps]) => `${k} → ${steps.map(stepStr).join(" + ")}`).join("<br>");
+  const snap = `<div class="si"><div class="st">默认处理</div><div class="sp">${pipe(INV.pipeline)}</div></div>
+    <div class="si"><div class="st">费用上限</div><div class="sp">${INV.budget ? `$${INV.budget.usd}` : "不设上限"} · 已花 $${S.money.spent.toFixed(4)} · 预留 $${Math.max(0, S.money.reserved).toFixed(4)}</div></div>
+    <div class="si"><div class="st">归类</div><div class="sp">${INV.sort.model} · threshold=${INV.sort.threshold}<br>选项 = ${INV.items.map((i) => i.key).join(" / ")} / none</div></div>
+    ${INV.items.map((it) => `<div class="si"><div><span class="sk">${it.key}</span> <span class="st">${esc(it.title)}</span> <span style="color:var(--night-dim);font-size:12px">${it.required ? "必交" : "可选"}${it.allowNone ? " · 可声明没有" : ""}</span></div>
+      <div class="sp">accept ${it.accept.join(", ")}${Object.keys(it.pipeline).length ? `<br><em>覆盖</em> ${pipe(it.pipeline)}` : ""}</div></div>`).join("")}`;
+  const right = last
+    ? `<div class="panel"><div class="ph"><span>result ${INV.id} --round ${last.round}</span><span class="tabs"><button data-tab="map" class="${S.agentTab === "map" ? "on" : ""}">MAP.md</button><button data-tab="json" class="${S.agentTab === "json" ? "on" : ""}">manifest.json</button></span></div>
+      ${S.agentTab === "map" ? renderMap(last.manifest) : `<pre class="json">${jsonHtml(last.manifest)}</pre>`}</div>`
+    : `<div class="panel"><div class="ph"><span>wait ${INV.id}</span><span>…</span></div><div class="empty-agent">对方还没提交。<br><button class="btn" data-act="demo">用示例交一轮</button></div></div>`;
+  return `<div class="agent"><div class="wrap"><div class="kicker">agent 这一侧 · MCP / scripts/do.ts</div>
+    <h1>agent 拿到的是什么</h1>
+    <p class="sub">左边是发链接前合成的邀请快照（<code>${INV.template.id}@${INV.template.version}</code>）；右边是 <code>result</code> 返回的这一轮。每个文件的归属写明来源（对方放的，或模型分的及分数）；模型描述单独标出，不算对方的话。</p>
+    <div class="agrid"><div class="panel"><div class="ph"><span>invite snapshot</span><span>${esc(INV.ref)}</span></div>
+      <div class="cmd"><b>$</b> do.ts create --template ${INV.template.id} --ref ${esc(INV.ref)}${INV.budget ? ` --budget ${INV.budget.usd}` : ""}<br>→ ${INV.id} · https://intake…/i/<span style="color:#e9a38f">k9Fh…</span><br><b>$</b> do.ts wait ${INV.id}<br>→ ${last ? `round ${last.round} submitted` : "waiting…"}</div>
+      <div class="snap">${snap}</div></div>${right}</div></div></div>`;
+};
+
+/* =====================================================================
+   主循环与事件
+   ===================================================================== */
+let introTimer;
+const intro = () => { document.body.classList.add("intro"); clearTimeout(introTimer); introTimer = setTimeout(() => document.body.classList.remove("intro"), 900); };
+const setView = (v) => { S.view = v; document.querySelectorAll("#switch [data-view]").forEach((b) => b.classList.toggle("on", b.dataset.view === v)); intro(); render(); window.scrollTo(0, 0); };
+const render = () => {
+  const ae = document.activeElement, nk = ae?.dataset?.note, caret = ae?.selectionStart;
+  $("#app").innerHTML = S.view === "client" ? renderClient() : S.view === "done" ? renderDone() : renderAgent();
+  document.body.style.background = S.view === "agent" ? "var(--night)" : "";
+  renderDrawer();
+  if (nk) { const el = document.querySelector(`[data-note="${nk}"]`); if (el) { el.focus(); el.setSelectionRange(caret, caret); } }
+};
+const dropFolder = () => { if (S.folderIn) return; S.folderIn = true; addFiles(TPL.fixtures.folder); };
+const dropExtras = (k) => { const list = TPL.fixtures.extras?.[k]; if (!list) return; delete TPL.fixtures.extras[k]; S.own[k] = false; addFiles(list, k); };
+
+document.addEventListener("click", (e) => {
+  const t = e.target;
+  const v = t.closest("#switch [data-view]"); if (v) return setView(v.dataset.view);
+  const tab = t.closest("[data-tab]"); if (tab) { S.agentTab = tab.dataset.tab; return render(); }
+  const act = t.closest("[data-act]")?.dataset.act;
+  if (act === "drop") return dropFolder();
+  if (act === "submit") return submit();
+  if (act === "next") return nextRound();
+  if (act === "demo") return demo();
+  if (act === "skip") { S.skipped = true; return render(); }
+  if (act === "unskip") { S.skipped = false; return render(); }
+  if (act === "rej") { S.showRej = !S.showRej; return render(); }
+  if (act === "close") { S.sel = null; return render(); }
+  const open = t.closest("[data-open]"); if (open) { S.sel = S.sel === open.dataset.open ? null : open.dataset.open; return render(); }
+  const pick = t.closest("[data-pick]"); if (pick) return reassign(pick.dataset.pick, pick.dataset.key);
+  const ownopen = t.closest("[data-ownopen]"); if (ownopen) { S.own[ownopen.dataset.ownopen] = true; return render(); }
+  const extra = t.closest("[data-extra]"); if (extra) return dropExtras(extra.dataset.extra);
+  const rt = t.closest("[data-retry]"); if (rt) return retry(rt.dataset.retry);
+  const rm = t.closest("[data-remove]"); if (rm) return removeFile(rm.dataset.remove);
+});
+document.addEventListener("change", (e) => {
+  const t = e.target;
+  if (t.id === "tplSel") return load(t.value);
+  if (t.matches("[data-reassign]")) return reassign(t.dataset.reassign, t.value);
+  if (t.matches("[data-none]")) { S.none[t.dataset.none] = t.checked; render(); }
+});
+document.addEventListener("input", (e) => { if (e.target.matches("[data-note]")) S.notes[e.target.dataset.note] = e.target.value; });
+document.addEventListener("dragover", (e) => { const z = e.target.closest(".hero, .own"); if (z) { e.preventDefault(); z.classList.add("over"); } });
+document.addEventListener("dragleave", (e) => { const z = e.target.closest(".hero, .own"); if (z) z.classList.remove("over"); });
+document.addEventListener("drop", (e) => { e.preventDefault(); const own = e.target.closest(".own"); document.querySelectorAll(".over").forEach((z) => z.classList.remove("over")); if (own) dropExtras(own.dataset.own); else dropFolder(); });
+
+/* =====================================================================
+   FIXTURES —— 两个毫不相关的示例模板与示例文件夹（数据，可以有领域）。
+   sim = 模拟 clef 给的分数；desc = 模拟描述；md = 模拟转出来的文字；
+   fail / fix = 模拟处理失败与对方换的文件。真实实现里没有这些。
+   ===================================================================== */
+const FIXTURES = {
+  "website-kickoff": {
+    id: "website-kickoff", version: 4, ref: "MZ-021", requester: "米站", title: "建站资料", expiresAt: "2026-11-05",
+    intro: "把手上的资料整个文件夹拖进来就行，我们会自动分好；分不准的再请您看一眼。",
+    pipeline: { image: [{ op: "image.resize" }], video: [{ op: "video.frames", count: 12 }, { op: "transcribe" }], pdf: [{ op: "pdf.markdown" }, { op: "pdf.pages" }],
+      doc: [{ op: "doc.markdown" }], sheet: [{ op: "doc.markdown" }], slides: [{ op: "slides.text" }], text: [{ op: "text.keep" }], audio: [{ op: "transcribe" }] },
+    sort: { threshold: .7, textChars: 2000, instructions: "这是一家企业为做官网提供的资料。" },
+    items: [
+      { key: "products", title: "产品照片", ask: "每个主要产品 3–5 张，白底或实拍都可以；有视频也欢迎。", accept: ["image", "video"], required: true, allowNone: false, note: "optional",
+        pipeline: { image: [{ op: "image.resize" }, { op: "describe", prompt: "用一两句话写出画面里的产品：外形、颜色、材质、可见的文字。只写看得见的。" }] } },
+      { key: "factory", title: "工厂与车间", ask: "厂房、产线、仓库、团队，照片或视频。", accept: ["image", "video"], required: false, allowNone: true, note: "optional" },
+      { key: "company", title: "公司介绍", ask: "公司简介、画册、PPT、旧官网的文字都行；懒得写也可以录一段语音讲讲。", accept: ["pdf", "doc", "slides", "text", "audio"], required: true, allowNone: false, note: "optional" },
+      { key: "specs", title: "产品目录与参数表", ask: "型号、规格、参数，Excel 或 PDF。", accept: ["sheet", "pdf"], required: false, allowNone: true, note: "optional" },
+      { key: "certificates", title: "资质证书", ask: "营业执照、ISO、产品认证。拍照或扫描都行，字要能看清。", accept: ["image", "pdf"], required: false, allowNone: true, note: "optional",
+        pipeline: { image: [{ op: "image.tile" }], pdf: [{ op: "pdf.pages", maxPages: 10, longEdge: 2400 }] } },
+      { key: "logo", title: "Logo", ask: "有源文件（AI、SVG、PDF）最好；没有就一张清晰的图。", accept: ["image", "pdf", "any"], required: true, allowNone: false, note: "off",
+        pipeline: { image: [{ op: "file.keep" }, { op: "image.resize", longEdge: 1024, format: "png" }], pdf: [{ op: "file.keep" }, { op: "pdf.pages", maxPages: 1 }], any: [{ op: "file.keep", maxBytes: 104857600 }] } },
+    ],
+    fixtures: {
+      notes: { products: "B 款是新品，还没正式上市，图片先别公开。" },
+      folder: [
+        { path: "公司资料/产品/A款/IMG_2041.HEIC", kind: "image", mime: "image/heic", bytes: 19083264, w: 6000, h: 4000, hue: 28, sim: { products: .94, factory: .03, none: .01 }, desc: "一台银色的立式包装机，正面有触摸屏，机身贴着蓝色铭牌。" },
+        { path: "公司资料/产品/A款/IMG_2042.HEIC", kind: "image", mime: "image/heic", bytes: 18350080, w: 6000, h: 4000, hue: 34, sim: { products: .92, factory: .05, none: .01 }, desc: "同一台包装机的侧面，可以看到出料口和不锈钢护罩。" },
+        { path: "公司资料/产品/B款/DSC_0091.JPG", kind: "image", mime: "image/jpeg", bytes: 9856000, w: 5472, h: 3648, hue: 200, sim: { products: .88, factory: .08, none: .02 }, desc: "白底上的一台小型台式封口机，蓝白配色，顶部有把手。" },
+        { path: "公司资料/产品/B款/展示.mp4", kind: "video", mime: "video/mp4", bytes: 86507520, w: 1920, h: 1080, dur: 94.2, audio: true, hue: 210, sim: { products: .81, factory: .15, none: .02 }, tr: "这款封口机一分钟可以封四十袋，温度在面板上直接调。" },
+        { path: "公司资料/车间/车间巡检.mp4", kind: "video", mime: "video/mp4", bytes: 412090368, w: 1920, h: 1080, dur: 482.4, audio: true, hue: 160, sim: { factory: .90, products: .07, none: .02 }, tr: "（大部分是机器声）这边是二号线，主要做出口的订单。" },
+        { path: "公司资料/车间/夜班.mov", kind: "video", mime: "video/quicktime", bytes: 205520896, w: 3840, h: 2160, dur: 61, audio: true, hue: 240,
+          fail: { op: "video.frames", reason: "浏览器解不了这个视频的编码（HEVC 10-bit）。可以在手机上「导出为兼容格式」后重新放进来。" },
+          fix: { path: "公司资料/车间/夜班（兼容格式）.mp4", kind: "video", mime: "video/mp4", bytes: 96468992, w: 1920, h: 1080, dur: 61, audio: true, hue: 240, sim: { factory: .87, products: .09, none: .02 }, tr: "夜班一般六个人，两条线同时开。" } },
+        { path: "公司资料/车间/厂房外景.jpg", kind: "image", mime: "image/jpeg", bytes: 4194304, w: 4032, h: 3024, hue: 120, sim: { factory: .86, products: .04, none: .05 } },
+        { path: "公司资料/公司简介2025.pptx", kind: "slides", mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation", bytes: 25165824, slides: 18, sim: { company: .83, specs: .09, none: .04 },
+          md: "## 第 1 页\n\n宏达机械 · 专注小型包装设备 20 年\n\n## 第 2 页\n\n公司概况\n- 成立于 2004 年\n- 厂房 12,000 ㎡\n\n> 备注：这页的数字要和画册对一下" },
+        { path: "公司资料/产品参数表.xlsx", kind: "sheet", mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", bytes: 389120, sim: { specs: .91, company: .05, none: .02 },
+          md: "## Sheet1\n\n| 型号 | 功率 | 电压 | 尺寸 (mm) |\n| --- | --- | --- | --- |\n| HD-200A | 2.2 kW | 380 V | 820×560×910 |\n| HD-300A | 3.0 kW | 380 V | 960×620×1020 |" },
+        { path: "公司资料/证书/ISO9001.pdf", kind: "pdf", mime: "application/pdf", bytes: 2202009, pages: 2, scan: true, sim: { certificates: .78, company: .12, none: .05 } },
+        { path: "公司资料/证书/营业执照.jpg", kind: "image", mime: "image/jpeg", bytes: 3355443, w: 3024, h: 4032, hue: 8, sim: { certificates: .74, company: .1, none: .1 } },
+        { path: "公司资料/logo.png", kind: "image", mime: "image/png", bytes: 1153434, w: 2400, h: 2400, hue: 355, mark: true, sim: { logo: .97, none: .01 } },
+        { path: "公司资料/杂/IMG_5521.JPG", kind: "image", mime: "image/jpeg", bytes: 3355443, w: 3024, h: 4032, hue: 140, sim: { factory: .41, products: .33, none: .18 } },
+        { path: "公司资料/杂/微信图片_20250311.jpg", kind: "image", mime: "image/jpeg", bytes: 812000, w: 1080, h: 1440, hue: 50, sim: { certificates: .38, products: .29, none: .2 } },
+        { path: "公司资料/杂/截图 2025-03-02.png", kind: "image", mime: "image/png", bytes: 1520000, w: 2880, h: 1800, hue: 220, sim: { none: .62, products: .2, factory: .1 } },
+        { path: "公司资料/采访录音.m4a", kind: "audio", mime: "audio/mp4", bytes: 4194304, dur: 192.4, sim: { company: .81, products: .08, none: .06 },
+          tr: "我们是 2004 年在佛山成立的，一开始只做封口机，后来慢慢做到整条包装线。现在主要客户在东南亚。" },
+        { path: "公司资料/旧版画册.ppt", reject: "老版 .ppt 打不开。请另存为 .pptx 或 PDF 再放进来。" },
+        { path: "公司资料/产品/手册.pdf", reject: "扩展名是 .pdf，内容却是 zip 压缩包。请解压后放里面的文件。" },
+        { ignore: true }, { ignore: true }, { ignore: true },
+      ],
+      extras: { logo: [ { path: "设计/logo-final.ai", kind: "any", mime: "application/postscript", bytes: 2883584 } ], products: [
+        { path: "新品/C款_01.jpg", kind: "image", mime: "image/jpeg", bytes: 6291456, w: 4000, h: 3000, hue: 300, desc: "一台紫色外壳的小型贴标机，放在木桌上。" },
+        { path: "新品/C款_02.jpg", kind: "image", mime: "image/jpeg", bytes: 6081740, w: 4000, h: 3000, hue: 310, desc: "贴标机的特写，可以看到标签卷和出标口。" },
+      ] },
+    },
+  },
+
+  "renovation-quote": {
+    id: "renovation-quote", version: 1, ref: "Q-2611", requester: "安居装饰", title: "装修报价资料", expiresAt: "2026-11-01",
+    invite: { budget: { usd: 0.002 } },   // agent 建邀请时给的上限（演示用：很小，会有调用被跳过）
+    intro: "设计师要先了解房子和您的想法才能报价。手机里的照片、图纸、收藏的图，整个拖进来就行。",
+    pipeline: { image: [{ op: "image.resize", longEdge: 1280 }], video: [{ op: "video.frames", count: 10 }, { op: "transcribe" }], pdf: [{ op: "pdf.markdown" }, { op: "pdf.pages" }],
+      doc: [{ op: "doc.markdown" }], sheet: [{ op: "doc.markdown" }], text: [{ op: "text.keep" }], audio: [{ op: "transcribe" }] },
+    sort: { threshold: .7, textChars: 1500 },
+    items: [
+      { key: "floorplan", title: "户型图", ask: "物业给的图纸、开发商户型图，或者您自己手画的都行。", accept: ["image", "pdf"], required: true, allowNone: false, note: "optional",
+        pipeline: { image: [{ op: "image.tile" }], pdf: [{ op: "pdf.pages", longEdge: 2400 }] } },
+      { key: "site", title: "现场照片", ask: "每个房间拍一圈，卫生间和厨房多拍几张；墙角、管道、天花板也拍一下。", accept: ["image", "video"], required: true, allowNone: false, note: "optional",
+        pipeline: { image: [{ op: "image.resize", longEdge: 1280 }, { op: "describe", prompt: "写出房间类型、墙面地面的现状、看得见的管线和损坏。只写看得见的。" }] } },
+      { key: "style", title: "喜欢的风格", ask: "收藏的效果图、截图都行，不用多。", accept: ["image"], required: false, allowNone: true, note: "optional" },
+      { key: "wishes", title: "需求和预算", ask: "住几个人、哪里要改、大概预算。备忘录、表格、语音都行，或者直接在下面补充里写。", accept: ["doc", "sheet", "text", "pdf", "audio"], required: false, allowNone: false, note: "optional" },
+    ],
+    fixtures: {
+      notes: { site: "卫生间漏水是楼上的问题，已经修好了。" },
+      folder: [
+        { path: "我家/户型图.jpg", kind: "image", mime: "image/jpeg", bytes: 2516582, w: 2480, h: 3508, hue: 40, sim: { floorplan: .95, site: .02, none: .01 } },
+        { path: "我家/物业给的图纸.pdf", kind: "pdf", mime: "application/pdf", bytes: 5242880, pages: 3, sim: { floorplan: .88, wishes: .05, none: .04 }, md: "# 3 栋 1203 平面图\n\n建筑面积 89.6 ㎡ · 套内 74.2 ㎡\n\n（图纸主体为图形，文字层很少）" },
+        { path: "我家/现场/客厅1.jpg", kind: "image", mime: "image/jpeg", bytes: 3984588, w: 4032, h: 3024, hue: 30, sim: { site: .90, style: .06, none: .02 }, desc: "空的客厅，白墙，地面是旧的米色瓷砖，窗边有一处墙皮起鼓。" },
+        { path: "我家/现场/卫生间.jpg", kind: "image", mime: "image/jpeg", bytes: 3670016, w: 3024, h: 4032, hue: 190, sim: { site: .87, style: .05, none: .05 }, desc: "狭长的卫生间，蹲便，墙砖到顶，天花板角落有水渍。" },
+        { path: "我家/现场/厨房.mp4", kind: "video", mime: "video/mp4", bytes: 73400320, w: 1920, h: 1080, dur: 38.5, audio: true, hue: 20, sim: { site: .84, none: .08 }, tr: "这个吊柜要拆掉，燃气表在这个角上，不能动。" },
+        { path: "我家/收藏/IMG_8812.PNG", kind: "image", mime: "image/png", bytes: 2936012, w: 1170, h: 2532, hue: 90, sim: { style: .82, site: .1, none: .05 } },
+        { path: "我家/收藏/IMG_8813.PNG", kind: "image", mime: "image/png", bytes: 3040870, w: 1170, h: 2532, hue: 100, sim: { style: .79, site: .12, none: .05 } },
+        { path: "我家/收藏/IMG_8820.PNG", kind: "image", mime: "image/png", bytes: 2831155, w: 1170, h: 2532, hue: 170, sim: { style: .52, site: .30, none: .12 } },
+        { path: "我家/想法.txt", kind: "text", mime: "text/plain", bytes: 1240, sim: { wishes: .90, none: .05 }, md: "两个大人一个小孩，明年老人可能来住。\n厨房想做开放式。\n卫生间想干湿分离。\n总预算 15 万以内。" },
+        { path: "我家/语音备忘 12.m4a", kind: "audio", mime: "audio/mp4", bytes: 1363148, dur: 84, sim: { wishes: .86, site: .05, none: .05 },
+          tr: "主卧想要一面整墙的衣柜，次卧以后给老人住，地面不要有门槛。" },
+        { ignore: true },
+      ],
+      extras: { style: [ { path: "Pinterest/北欧01.jpg", kind: "image", mime: "image/jpeg", bytes: 1048576, w: 1200, h: 1600, hue: 60 } ] },
+    },
+  },
+};
+
+const load = (id) => {
+  TPL = JSON.parse(JSON.stringify(FIXTURES[id]));
+  INV = resolve(TPL);
+  queue.length = 0; running = 0; gen++;
+  const view = S?.view ?? "client"; S = null; S = fresh(); S.view = view;
+  $("#tplSel").value = id;
+  setView(S.view);
+};
+$("#tplSel").innerHTML = Object.values(FIXTURES).map((t) => `<option value="${t.id}">示例：${t.title}</option>`).join("");
+S = null;
+load("website-kickoff");
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "name": "material-intake",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "postinstall": "node scripts/effect/install-compiler.mjs && node scripts/hooks-install.mjs"
+  },
+  "dependencies": {
+    "effect": "catalog:",
+    "fflate": "0.8.3",
+    "libheif-js": "1.23.5",
+    "mp4box": "2.4.1",
+    "pdfjs-dist": "6.4.299"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "2.0.0-beta.sha-52b0dc0e9",
+    "@cloudflare/workers-types": "5.20260908.1",
+    "@effect/tsgo": "0.45.0",
+    "@effect/vitest": "catalog:",
+    "@types/node": "22.15.17",
+    "@yansircc/effect-scan": "0.1.19",
+    "cf": "1.0.0-beta.12",
+    "typescript": "7.0.2",
+    "vite": "catalog:",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.15.0"
+  },
+  "packageManager": "pnpm@12.4.1"
+}
