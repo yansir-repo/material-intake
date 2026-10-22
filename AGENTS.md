@@ -41,6 +41,6 @@ material-intake：agent 用来向人收资料的工具。契约（类型、操�
 ## 部署
 
 - 资源：Worker `material-intake`（`https://material-intake.yansir.workers.dev`，每天 03:17 UTC 的 scheduled）、D1 `material-intake`（APAC）、R2 `material-intake-files`（APAC）。密钥 `ADMIN_TOKEN` 在 `data/prod-secrets.json`（不入库）。
-- **push 到 `main` 自动部署**（Cloudflare Workers Builds，设置在 Cloudflare 里）：构建 `pnpm exec vp run ci`，部署 `pnpm exec cf d1 migrations apply <D1 id> && pnpm exec cf deploy --prebuilt`——先迁移再部署，门禁或迁移失败就不部署。看构建：`cf builds list --external-script-id <Worker tag>`、`cf builds logs get <build-uuid>`。
+- **push 到 `main` 自动部署**（Cloudflare Workers Builds，设置在 Cloudflare 里）：构建 `pnpm exec vp run ci`，部署 `pnpm exec cf d1 migrations apply <D1 id> && pnpm exec cf deploy --prebuilt`——先迁移再部署，门禁或迁移失败就不部署。看构建：`cf builds list --external-script-id 1228d5255aae44caabdd4d910081e83d`（Worker tag）、`cf builds logs get <build-uuid>`；手动触发：`cf builds create f28e79ea-3fb3-49e2-a873-835e1428bef2 --body '{"branch":"main"}'`。密钥不用 `--secrets-file`：`cf deploy` 沿用上一个版本的密钥。
 - 手动部署仍可用：`vp run deploy`（ci → 远程迁移 → `cf deploy --secrets-file data/prod-secrets.json`）。部署的是工作区，不是某个提交。
 - **部署后跑一次** `node scripts/smoke.ts`（`vp run smoke`）：扮演对方对线上走完整流程，约 $0.001；页面本身在本地 dev 里验（浏览器面板里的线上页面没法从本机读测试文件）。
